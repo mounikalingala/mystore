@@ -1,9 +1,12 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const Registeruser = require("./model")
-const Jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 const middleware = require("./middleware")
+const cors=require("cors")
 const app = express()
+
+
 
 mongoose.connect("mongodb+srv://mounika:yIw4IYaNkzXR3gV2@cluster0.4qioyol.mongodb.net/?retryWrites=true&w=majority").then(
     () => 
@@ -12,6 +15,8 @@ mongoose.connect("mongodb+srv://mounika:yIw4IYaNkzXR3gV2@cluster0.4qioyol.mongod
 )
 
 app.use(express.json())
+
+app.use(cors({origin:"*"}))
 
 app.post("/register", async(req, res) => {
     try {
@@ -51,11 +56,12 @@ app.post("/login", async(req, res) => {
                 id:exist.id
             }
         }
-        Jwt.sign(payload, "jwtoken", { expiresIn: 3600000 },
+        jwt.sign(payload, "jwtoken", { expiresIn: 3600000 },
             (err, token) => {
             if (err) throw err
             return res.json({token})
-        })
+            }
+        )
     } catch (err) {
         console.log(err)
         return res.stat(500).send("Server Error")
@@ -63,7 +69,7 @@ app.post("/login", async(req, res) => {
     }
 })
 
-app.get("./myprofile", middleware, async (req, res) => {
+app.get("/myprofile", middleware, async (req, res) => {
     try {
         let exist=await Registeruser.findById(req.user.id)
         if (!exist) {
