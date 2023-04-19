@@ -8,7 +8,7 @@ import './App.css';
 
 export const store=createContext()
 
-function App() {
+const App=() =>{
   const [token,setToken]=useState(null)
 
   return (

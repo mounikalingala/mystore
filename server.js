@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const Registeruser = require("./model")
 const jwt = require("jsonwebtoken")
 const middleware = require("./middleware")
-const cors=require("cors")
+var cors = require('cors');
 const app = express()
 
 
@@ -16,7 +16,7 @@ mongoose.connect("mongodb+srv://mounika:yIw4IYaNkzXR3gV2@cluster0.4qioyol.mongod
 
 app.use(express.json())
 
-app.use(cors({origin:"*"}))
+app.use(cors())
 
 app.post("/register", async(req, res) => {
     try {

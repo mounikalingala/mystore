@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import {Navigate} from "react-router-dom"
 import axios from "axios";
+import { Navigate } from "react-router-dom"
 import {store} from "./App"
 
 const Login = () => {
@@ -16,14 +16,14 @@ const Login = () => {
 
     const onSubmit = event => {
         event.preventDefault()
-        axios.post("http://localhost:5000/login", data).then(
+        axios.post('http://localhost:5000/login',data).then(
             res=>setToken(res.data.token)
-        )
-        if (token) {
+        ) 
+    }
+    if(token) {
             return <Navigate to="/myprofile"/>
         }
 
-    }
 
     return (
         <div>

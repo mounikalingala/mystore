@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from 'axios';
 
 const Register = () => {
     const [data, setData] = useState({
@@ -15,8 +15,13 @@ const Register = () => {
 
     const onSubmit = event => {
         event.preventDefault()
-        axios.post("http://localhost:5000/register", data).then(
-            res=>alert(res.data)
+        axios.post('http://localhost:5000/register',data).then(
+            res=> {alert(res.data);setData({
+                username:'',
+                email:'',
+                password:'',
+                confirmpassword:''
+            })}
         )
 
     }
