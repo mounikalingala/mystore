@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import Axios from 'axios';
 
 const Register = () => {
     const [data, setData] = useState({
@@ -15,14 +15,13 @@ const Register = () => {
 
     const onSubmit = event => {
         event.preventDefault()
-        axios.post('http://localhost:5000/register',data).then(
-            res=> {alert(res.data);setData({
-                username:'',
-                email:'',
-                password:'',
-                confirmpassword:''
-            })}
+        console.log(data)
+        Axios.post('http://localhost:5000/register',data).then(
+            res=> {alert(res.data);}
         )
+        setData({
+            data:""
+        })
 
     }
 
@@ -35,7 +34,7 @@ const Register = () => {
                     <input type="email" name="email" placeholder="Enter Email" onChange={changeHandler } /><br/>
                     <input type="password" name="password" placeholder="Enter Password" onChange={changeHandler } /><br/>
                     <input type="password" name="confirmpassword" placeholder="Confirm password" onChange={changeHandler } /><br/>
-                    <input type="submit" value="register" />
+                    <input type="submit" value="Register" />
                 </form>
             </center>
         </div>

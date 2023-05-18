@@ -3,20 +3,22 @@ const mongoose = require("mongoose")
 const Registeruser = require("./model")
 const jwt = require("jsonwebtoken")
 const middleware = require("./middleware")
-var cors = require('cors');
+const cors = require('cors');
 const app = express()
 
-
-
-mongoose.connect("mongodb+srv://mounika:yIw4IYaNkzXR3gV2@cluster0.4qioyol.mongodb.net/?retryWrites=true&w=majority").then(
-    () => 
+mongoose.connect("mongodb+srv://mounika:mounika@cluster0.4qioyol.mongodb.net/?retryWrites=true&w=majority").then(
+    () => {
         console.log("DB connected")
-    
+    }
 )
 
 app.use(express.json())
 
-app.use(cors())
+app.use(cors({origing:"*"}))
+
+app.get("/", (req, res) => {
+    res.send("homepage")
+})
 
 app.post("/register", async(req, res) => {
     try {
@@ -46,10 +48,10 @@ app.post("/login", async(req, res) => {
         const { email, password } = req.body
         let exist = await Registeruser.findOne({ email })
         if (!exist) {
-            return res.stat(400).send("User Not Found")
+            return res.status(400).send("User Not Found")
         }
         if (exist.password!==password) {
-            return res.stat(400).send("Invalid Credentials")
+            return res.status(400).send("Invalid Credentials")
         }
         let payload = {
             user: {
@@ -64,7 +66,7 @@ app.post("/login", async(req, res) => {
         )
     } catch (err) {
         console.log(err)
-        return res.stat(500).send("Server Error")
+        return res.status(500).send("Server Error")
         
     }
 })

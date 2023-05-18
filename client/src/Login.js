@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
-import { Navigate } from "react-router-dom"
+import Axios from "axios";
+import { useNavigate} from "react-router-dom"
 import {store} from "./App"
 
 const Login = () => {
+    const navigate=useNavigate()
     const [token,setToken]=useContext(store)
     const [data, setData] = useState({
         email: "",
@@ -16,12 +17,13 @@ const Login = () => {
 
     const onSubmit = event => {
         event.preventDefault()
-        axios.post('http://localhost:5000/login',data).then(
-            res=>setToken(res.data.token)
+        Axios.post('http://localhost:5000/login',data).then(
+            res => setToken( console.log(res.data.token))
         ) 
     }
+
     if(token) {
-            return <Navigate to="/myprofile"/>
+            return  navigate("/myprofile")
         }
 
 

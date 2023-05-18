@@ -19,7 +19,7 @@ const App=() =>{
         <Routes>
           <Route path="/register" Component={Register} />
           <Route path="/login" Component={Login} />
-          <Route path="/myprofile" omponent={Myprofile} />
+          <Route path="/myprofile" Component={Myprofile} />
         </Routes>
         </BrowserRouter>
       </store.Provider>
